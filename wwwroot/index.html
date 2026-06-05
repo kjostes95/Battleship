@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Battleship</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <main>
+        <h1>Battleship</h1>
+        <p>Click any cell to fire a shot. Ship positions stay hidden until you win.</p>
+        <button id="new-game">New Game</button>
+        <div id="status" class="status"></div>
+        <div id="notice" class="notice"></div>
+        <div id="board-container"></div>
+        <div id="summary"></div>
+        <div class="leaderboard-header">
+            <button id="refresh-leaderboard">Refresh Leaderboard</button>
+        </div>
+        <div id="leaderboard-container" class="leaderboard-container"></div>
+    </main>
+    <script src="app.js?v=3" defer></script>
+</body>
+</html>
