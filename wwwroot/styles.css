@@ -61,7 +61,46 @@ button:hover {
 }
 
 .cell.sunk {
-  background: green;
+  background: #2b7f2b;
+}
+
+.legend {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+  align-items: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.legend-color {
+  width: 18px;
+  height: 18px;
+  border-radius: 0.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.legend-color.miss {
+  background: #234155;
+}
+
+.legend-color.hit {
+  background: #b5302b;
+}
+
+.legend-color.sunk {
+  background: #2b7f2b;
 }
 
 .status {

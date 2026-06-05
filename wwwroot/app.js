@@ -7,7 +7,7 @@ const newGameButton = document.getElementById('new-game');
 const refreshLeaderboardButton = document.getElementById('refresh-leaderboard');
 
 let gameId = null;
-let boardSize = 8;
+let boardSize = 10;
 let boardState = {};
 let isGameOver = false;
 
@@ -49,7 +49,7 @@ async function createGame() {
     boardSize = result.boardSize;
     boardState = {};
     isGameOver = false;
-    statusEl.textContent = `Game created: ${gameId}`;
+    statusEl.textContent = `Game ID: ${gameId}`;
     summaryEl.textContent = '';
     noticeEl.textContent = '';
     renderBoard();
@@ -69,9 +69,10 @@ function renderBoard() {
             cell.dataset.x = x;
             cell.dataset.y = y;
             const key = `${x},${y}`;
-            if (boardState[key]) {
-                cell.classList.add(boardState[key]);
-                cell.textContent = boardState[key] === 'miss' ? '•' : 'X';
+            const shot = boardState[key];
+            if (shot) {
+                cell.classList.add(shot.outcome);
+                cell.textContent = shot.outcome === 'miss' ? '•' : 'X';
                 cell.disabled = true;
             }
             cell.addEventListener('click', () => fireShot(x, y));
@@ -175,7 +176,21 @@ async function fireShot(x, y) {    if (!gameId) {
 
     noticeEl.textContent = '';
     const result = await response.json();
-    boardState[`${x},${y}`] = result.outcome;
+    const key = `${x},${y}`;
+    boardState[key] = {
+        outcome: result.outcome,
+        shipName: result.shipName
+    };
+
+    if (result.outcome === 'sunk' && result.shipName) {
+        for (const shotKey of Object.keys(boardState)) {
+            const shot = boardState[shotKey];
+            if (shot.shipName === result.shipName) {
+                shot.outcome = 'sunk';
+            }
+        }
+    }
+
     if (result.isWon) {
         isGameOver = true;
         summaryEl.textContent = 'You sank the fleet! You win!!!';
